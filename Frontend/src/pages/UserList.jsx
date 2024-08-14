@@ -1,105 +1,39 @@
+// src/pages/UserList.js
+
 import React, { useState } from 'react';
-// import { createUser } from '../services/api';
+import AddUser from './AddUser';
 
-const UserList = () => {
-  const [userName, setUserName] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [emailAddress, setEmailAddress] = useState('');
-  const [userAddress, setUserAddress] = useState('');
-  const [userPhone, setUserPhone] = useState('');
-  const [userRole, setUserRole] = useState('User');
-  const [companyId, setCompanyId] = useState(1);
-  const [userFile, setUserFile] = useState(null);
+function UserList() {
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userData = {
-      userName,
-      userPassword,
-      emailAddress,
-      userAddress,
-      userPhone,
-      userRole,
-      loginStatus: false,
-      userProfile: userFile ? URL.createObjectURL(userFile) : '',
-      companyId,
-      userFile,
-    };
-    await createUser(userData);
+  const handleAddUserClick = () => {
+    setShowAddUserForm(!showAddUserForm); // Toggle form visibility
   };
 
   return (
-    <form className="max-w-md mx-auto bg-white p-8 shadow-md rounded-lg" onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold mb-6">Create User</h2>
-      <div className="mb-4">
-        <label className="block text-gray-700">User Name</label>
-        <input
-          type="text"
-          className="w-full px-4 py-2 border rounded-lg"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Password</label>
-        <input
-          type="password"
-          className="w-full px-4 py-2 border rounded-lg"
-          value={userPassword}
-          onChange={(e) => setUserPassword(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Email Address</label>
-        <input
-          type="email"
-          className="w-full px-4 py-2 border rounded-lg"
-          value={emailAddress}
-          onChange={(e) => setEmailAddress(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Address</label>
-        <input
-          type="text"
-          className="w-full px-4 py-2 border rounded-lg"
-          value={userAddress}
-          onChange={(e) => setUserAddress(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Phone</label>
-        <input
-          type="text"
-          className="w-full px-4 py-2 border rounded-lg"
-          value={userPhone}
-          onChange={(e) => setUserPhone(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Role</label>
-        <select
-          className="w-full px-4 py-2 border rounded-lg"
-          value={userRole}
-          onChange={(e) => setUserRole(e.target.value)}
+    <div className="container mx-auto p-6">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">User List</h2>
+        <button
+          onClick={handleAddUserClick}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
         >
-          <option value="User">User</option>
-          <option value="Admin">Admin</option>
-        </select>
+          {showAddUserForm ? 'Cancel' : 'Add User'}
+        </button>
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Upload Profile Picture</label>
-        <input
-          type="file"
-          className="w-full px-4 py-2 border rounded-lg"
-          onChange={(e) => setUserFile(e.target.files[0])}
-        />
+
+      {showAddUserForm && (
+        <div className="mb-6">
+          <AddUser /> {/* Display the AddUser form */}
+        </div>
+      )}
+
+      {/* Placeholder for user list, replace with actual user data */}
+      <div className="bg-white p-4 rounded-md shadow-md">
+        <p>No users available. Add a user to get started!</p>
       </div>
-      <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg">
-        Create User
-      </button>
-    </form>
+    </div>
   );
-};
+}
 
 export default UserList;

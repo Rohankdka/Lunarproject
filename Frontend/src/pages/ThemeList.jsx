@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const ThemeList = () => {
-  const [themeName, setThemeName] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const themeData = { themeName };
-    // Call API to create theme
-  };
+function ThemeList() {
+  // Placeholder data
+  const themes = [
+    { id: 1, name: 'Light Theme', status: 'Active' },
+    { id: 2, name: 'Dark Theme', status: 'Inactive' },
+  ];
 
   return (
-    <form className="max-w-md mx-auto bg-white p-8 shadow-md rounded-lg" onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold mb-6">Create Theme</h2>
-      <div className="mb-4">
-        <label className="block text-gray-700">Theme Name</label>
-        <input
-          type="text"
-          className="w-full px-4 py-2 border rounded-lg"
-          value={themeName}
-          onChange={(e) => setThemeName(e.target.value)}
-        />
-      </div>
-      <button type="submit" className="w-full bg-green-500 text-white py-2 rounded-lg">
-        Create Theme
-      </button>
-    </form>
+    <div className="max-w-4xl mx-auto py-10">
+      <h2 className="text-3xl font-bold mb-6">Theme Management</h2>
+      <table className="min-w-full bg-white shadow-md rounded-lg mb-6">
+        <thead>
+          <tr>
+            <th className="py-3 px-6 bg-gray-200 text-left">ID</th>
+            <th className="py-3 px-6 bg-gray-200 text-left">Theme Name</th>
+            <th className="py-3 px-6 bg-gray-200 text-left">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {themes.map(theme => (
+            <tr key={theme.id} className="border-b">
+              <td className="py-3 px-6">{theme.id}</td>
+              <td className="py-3 px-6">{theme.name}</td>
+              <td className="py-3 px-6">{theme.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* Add functionalities for activating/deactivating themes */}
+      <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Add New Theme</button>
+    </div>
   );
-};
+}
 
 export default ThemeList;
